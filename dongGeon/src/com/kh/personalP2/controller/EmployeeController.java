@@ -11,6 +11,11 @@ import com.kh.personalP2.vo.Room;
 public class EmployeeController {
 	
 	
+	/**
+	 * 입력받음 아이디 패스워드 서비스로 보냄 
+	 * @param empId (아이디)
+	 * @param empPwd (패스워드) 
+	 */
 	public void admLogin(String empId, String empPwd) {
 		
 		Employee a = new EmpService().admLogin(empId,empPwd);
@@ -26,6 +31,7 @@ public class EmployeeController {
 		}
 
 	}
+	
 	
 	public void empLogin(String empId, String empPwd) {
 		
@@ -64,6 +70,14 @@ public class EmployeeController {
 			new EmployeeMenu().displayFail("해당하는 회원이 없어 회원정보수정에 실패했습니다.");
 		}
 	}
+	/**
+	 * 입력받은 인자로 사원정보 수정
+	 * @param empId
+	 * @param phone
+	 * @param dept
+	 * @param salary
+	 * @param bonus
+	 */
 	public void updateEmployeeAdm(String empId,String phone,String dept,int salary,double bonus) {
 		Employee e = new Employee();
 		e.setEmpId(empId);
@@ -134,6 +148,11 @@ public class EmployeeController {
 		}		
 	}
 	
+	/**
+	 * 입력받은 룸네임으로 회의실 예약
+	 * @param a
+	 * @param roomName
+	 */
 	public void reservationRoom(Employee a, String roomName) {
 		int result = new EmpService().reservationRoom(a,roomName);
 		
@@ -144,6 +163,9 @@ public class EmployeeController {
 		}
 	}
 	
+	/**
+	 * 회의실 예약 대기목록 출력
+	 */
 	public void selectRoomLog() {
 		ArrayList<ReservationLog> list = new EmpService().selectRoomLog();
 		
@@ -154,18 +176,48 @@ public class EmployeeController {
 		}	
 	}
 	
+	/**
+	 * 회의실 이름받고 예약 확정
+	 * @param roomName
+	 */
 	public void confirmRoom(String roomName) {
 		int result = new EmpService().confirmRoom(roomName);
 		
 		if(result > 0) {
 			new EmployeeMenu().displaySuccess(roomName + "이 예약확정되었습니다.");
 		}else {
-			new EmployeeMenu().displayFail("예약확정하지 못했습니다.");
+			new EmployeeMenu().displayFail("없는 회의실 이름이거나 예약이 이미 확정되어있습니다.");
 		}
 	}
 	
+	/**
+	 * 예약한 회원이 회의실 반납
+	 * @param a
+	 * @param Rn
+	 */
+	public void returnRoom(Employee a, String Rn) {
+		int result = new EmpService().returnRoom(a,Rn);
+		
+		if(result > 0) {
+			new EmployeeMenu().displaySuccess("회의실반납이 완료되었습니다.\n 이용해주셔서 감사합니다.");
+		}else {
+			new EmployeeMenu().displayFail("회의실 반납에 실패하였습니다. \n 회의실 이름을 또는 본인이 예약한 회의실인지 확인해주세요.");
+		}
+	}
 	
-	
+	/**
+	 * 회원이 예약 확정목록 보기
+	 * @param a
+	 */
+	public void selectConfirmRoom(Employee a) {
+		ArrayList<ReservationLog> list = new EmpService().selectConfirmRoom(a);
+		
+		if(list.isEmpty()) {
+			new EmployeeMenu().displayNoData("예약 확정된 목록이 없습니다.");
+		}else {
+			new EmployeeMenu().displayConfirmLogList(list);
+		}	
+	}
 	
 	
 }

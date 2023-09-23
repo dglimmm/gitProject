@@ -162,4 +162,28 @@ public class EmpService {
 		return result;
 	}
 	
+	public int returnRoom(Employee a,String Rn) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		int result = new EmployeeDao().returnRoom(conn,a, Rn);
+		if(result >0) {
+			JDBCTemplate.commit(conn);
+		}else {
+			JDBCTemplate.rollback(conn);
+		}
+		JDBCTemplate.close(conn);
+		
+		return result;
+		
+	}
+	
+	public ArrayList<ReservationLog> selectConfirmRoom(Employee a) {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		ArrayList<ReservationLog> list = new EmployeeDao().selectConfirmRoom(conn,a);
+		JDBCTemplate.close(conn);
+		
+		return list;
+	}
+	
 }

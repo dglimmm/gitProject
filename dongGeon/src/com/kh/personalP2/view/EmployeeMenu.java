@@ -15,7 +15,9 @@ public class EmployeeMenu {
 	public EmployeeMenu() {
 		
 	}
-	//로그인 하면 메인메뉴 뜨게하는 메서드 
+	/**
+	 * 관리자 또는 회원 로그인 뷰
+	 */
 	public void logintoMain() {
 		while(true) {
 			System.out.println("erp 프로그램을 시작합니다.");
@@ -53,20 +55,21 @@ public class EmployeeMenu {
 		}
 	}
 	
-	public String inputId() {
-		System.out.println("ID를 입력하세요 : ");
-		return sc.nextLine();
-	}
 	
-	// 회원메뉴
+	/**
+	 * 회원 등급이 로그인시 나타나는 메뉴 
+	 * @param a (로그인한 회원정보 저장하기위함) 
+	 */
 	public void mainMenuEmployee(Employee a) {
 		boolean istrue = true;
 		while(istrue) {
-			System.out.println("회원 메뉴입니다. 원하시는 메뉴번호를 입력해주세요.");
+			System.out.println("\n회원 메뉴입니다. 원하시는 메뉴번호를 입력해주세요.");
 			System.out.println("1. 내정보 보기");
 			System.out.println("2. 내정보 수정");
 			System.out.println("3. 회원 탈퇴");
 			System.out.println("4. 회의실 예약");
+			System.out.println("5. 회의실 반납");
+			System.out.println("6. 회의실 예약상태 확인");
 			System.out.println("9. 뒤로가기");
 			int num = sc.nextInt();
 			sc.nextLine();
@@ -114,6 +117,19 @@ public class EmployeeMenu {
 					ec.reservationRoom(a,roomName);
 					
 					break;
+				case 5 :
+					System.out.print("반납하시고 싶은 회의실이름을 입력해주세요.\n");
+					ec.selectConfirmRoom(a);
+					String Rn = sc.next();
+					
+					ec.returnRoom(a,Rn);
+					
+					break;
+				case 6 :
+					System.out.println("\n회원님의 회의실 예약 확정 내역입니다.");
+					ec.selectConfirmRoom(a);
+					
+					break;
 				case 9 :
 					istrue = false;
 					break;
@@ -122,10 +138,13 @@ public class EmployeeMenu {
 			}
 		}		
 	}
-	//관리자 메뉴 
+	/**
+	 * 관리자 등급으로 로그인할 시 보여주는 메뉴
+	 * @param a
+	 */
 	public void mainMenuAdmin(Employee a) {
 		while(true) {
-			System.out.println("관리자 메뉴입니다. 원하시는 메뉴번호를 입력해주세요.");
+			System.out.println("\n관리자 메뉴입니다. 원하시는 메뉴번호를 입력해주세요.");
 			System.out.println("1. 사원 추가");
 			System.out.println("2. 사원 수정");
 			System.out.println("3. 사원 삭제");
@@ -227,10 +246,6 @@ public class EmployeeMenu {
 		
 	}
 	
-	public String inputRoom(){
-		System.out.println("예약할 room의 이름을 입력하세요.");
-		return sc.next();
-	}
 	
 	
 	//---------------------------------응답화면------------------------------
@@ -286,6 +301,13 @@ public class EmployeeMenu {
 	
 	public void displayRoomLogList(ArrayList<ReservationLog> list) {
 		System.out.println("\n조회된 데이터는 다음과 같습니다\n");
+		
+		for(ReservationLog rl : list) {
+			System.out.println(rl);
+		}
+	}
+	
+	public void displayConfirmLogList(ArrayList<ReservationLog> list) {
 		
 		for(ReservationLog rl : list) {
 			System.out.println(rl);

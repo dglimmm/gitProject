@@ -413,4 +413,58 @@ private Properties prop = new Properties();
 		return result;
 	}
 	
+	public int returnRoom(Connection conn, Employee a ,String Rn){
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("returnRoom");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, Rn);
+			pstmt.setInt(2, a.getEmpNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}finally {
+			JDBCTemplate.close(pstmt);
+		}
+		return result;
+	}
+	
+	public ArrayList<ReservationLog> selectConfirmRoom(Connection conn,Employee a){
+		ArrayList<ReservationLog> list = new ArrayList<>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectConfirmRoom");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, a.getEmpNo());
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				ReservationLog rl = new ReservationLog();
+				rl.setrNo(rset.getInt("rno"));
+				rl.setRoomName(rset.getString("ROOM_NAME"));
+				rl.setEmpNo(rset.getInt("EMPNO"));
+				rl.setStatus(rset.getString("STATUS"));
+				
+				
+				list.add(rl);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			JDBCTemplate.close(rset);
+			JDBCTemplate.close(pstmt);
+		}
+		return list;
+	}
 }
