@@ -57,6 +57,17 @@ CREATE SEQUENCE SEQ_rno
 NOCACHE;
 
 CREATE OR REPLACE TRIGGER TRG_01
+AFTER DELETE ON RESERVATION_LOG
+FOR EACH ROW
+BEGIN
+        UPDATE ROOM
+        SET ROOM_YN = 'Y'
+        WHERE room_name =:OLD.room_name;
+
+END;
+/
+
+CREATE OR REPLACE TRIGGER TRG_02
 AFTER UPDATE ON RESERVATION_LOG
 FOR EACH ROW
 BEGIN
@@ -66,12 +77,10 @@ BEGIN
         WHERE room_name =:NEW.room_name;
     END IF;
     
-    IF(:NEW.STATUS = 'NO')
-        THEN UPDATE ROOM
-        SET ROOM_YN = 'Y'
-        WHERE room_name =:NEW.room_name;
-    END IF;
+    UPDATE ROOM
+        SET RNO = :NEW.rno
+        WHERE room_name = :NEW.room_name;
+    
 END;
 /
-
 COMMIT;

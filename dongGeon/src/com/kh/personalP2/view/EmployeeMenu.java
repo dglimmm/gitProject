@@ -149,7 +149,8 @@ public class EmployeeMenu {
 			System.out.println("2. 사원 수정");
 			System.out.println("3. 사원 삭제");
 			System.out.println("4. 사원 전체 출력");
-			System.out.println("5. 회의실 예약 관리(확정)");
+			System.out.println("5. 회의실 예약 관리목록 조회");
+			System.out.println("6. 회의실 예약 관리(확정)");
 			System.out.println("9. 뒤로가기");
 			int num = sc.nextInt();
 			sc.nextLine();
@@ -194,6 +195,8 @@ public class EmployeeMenu {
 				break;
 			case 5 :
 				ec.selectRoomLog();
+				break;
+			case 6 :
 				
 				System.out.println("==회의실 예약확정==");
 				System.out.println("예약확정할 회의실 이름을 입력해주세요 : ");

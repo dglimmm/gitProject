@@ -213,7 +213,7 @@ public class EmployeeController {
 		ArrayList<ReservationLog> list = new EmpService().selectConfirmRoom(a);
 		
 		if(list.isEmpty()) {
-			new EmployeeMenu().displayNoData("예약 확정된 목록이 없습니다.");
+			new EmployeeMenu().displayNoData("예약 확정된 회의실이 없습니다.");
 		}else {
 			new EmployeeMenu().displayConfirmLogList(list);
 		}	
