@@ -10,38 +10,39 @@ import com.kh.personalP2.vo.ReservationLog;
 import com.kh.personalP2.vo.Room;
 
 public class EmpService {
+	static Employee logindata;
 
 	
 	public Employee admLogin(String empId,String empPwd) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		Employee e = new EmployeeDao().admLogin(conn, empId,empPwd);
+		logindata = new EmployeeDao().admLogin(conn, empId,empPwd);
 		JDBCTemplate.close(conn);
 		
-		return e;
+		return logindata;
 	}
 	public Employee empLogin(String empId,String empPwd) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		Employee e = new EmployeeDao().empLogin(conn, empId,empPwd);
+		logindata = new EmployeeDao().empLogin(conn, empId,empPwd);
+		JDBCTemplate.close(conn);
+		
+		return logindata;
+	}
+	
+	public Employee selectById() {
+		Connection conn = JDBCTemplate.getConnection();
+		
+		Employee e = new EmployeeDao().selectById(conn, logindata);
 		JDBCTemplate.close(conn);
 		
 		return e;
 	}
 	
-	public Employee selectById(Employee a) {
+	public int updateEmployee(Employee e) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		Employee e = new EmployeeDao().selectById(conn, a);
-		JDBCTemplate.close(conn);
-		
-		return e;
-	}
-	
-	public int updateEmployee(Employee a, Employee e) {
-		Connection conn = JDBCTemplate.getConnection();
-		
-		int result = new EmployeeDao().updateEmployee(conn, a, e);
+		int result = new EmployeeDao().updateEmployee(conn, logindata, e);
 		if(result >0) {
 			JDBCTemplate.commit(conn);
 		}else {
@@ -65,10 +66,10 @@ public class EmpService {
 		return result;
 	}
 	
-	public int deleteEmployee(Employee a) {
+	public int deleteEmployee() {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = new EmployeeDao().deleteEmployee(conn,a);
+		int result = new EmployeeDao().deleteEmployee(conn,logindata);
 		
 		if(result >0) {
 			JDBCTemplate.commit(conn);
@@ -124,10 +125,10 @@ public class EmpService {
 		return list;
 	}
 	
-	public int reservationRoom(Employee a,String roomName) {
+	public int reservationRoom(String roomName) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = new EmployeeDao().reservationRoom(conn,a, roomName);
+		int result = new EmployeeDao().reservationRoom(conn,logindata, roomName);
 		if(result >0) {
 			JDBCTemplate.commit(conn);
 		}else {
@@ -162,10 +163,10 @@ public class EmpService {
 		return result;
 	}
 	
-	public int returnRoom(Employee a,String Rn) {
+	public int returnRoom(String Rn) {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		int result = new EmployeeDao().returnRoom(conn,a, Rn);
+		int result = new EmployeeDao().returnRoom(conn,logindata, Rn);
 		if(result >0) {
 			JDBCTemplate.commit(conn);
 		}else {
@@ -177,10 +178,10 @@ public class EmpService {
 		
 	}
 	
-	public ArrayList<ReservationLog> selectConfirmRoom(Employee a) {
+	public ArrayList<ReservationLog> selectConfirmRoom() {
 		Connection conn = JDBCTemplate.getConnection();
 		
-		ArrayList<ReservationLog> list = new EmployeeDao().selectConfirmRoom(conn,a);
+		ArrayList<ReservationLog> list = new EmployeeDao().selectConfirmRoom(conn,logindata);
 		JDBCTemplate.close(conn);
 		
 		return list;

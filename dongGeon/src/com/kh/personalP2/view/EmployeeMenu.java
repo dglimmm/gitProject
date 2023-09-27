@@ -60,7 +60,7 @@ public class EmployeeMenu {
 	 * 회원 등급이 로그인시 나타나는 메뉴 
 	 * @param a (로그인한 회원정보 저장하기위함) 
 	 */
-	public void mainMenuEmployee(Employee a) {
+	public void mainMenuEmployee() {
 		boolean istrue = true;
 		while(istrue) {
 			System.out.println("\n회원 메뉴입니다. 원하시는 메뉴번호를 입력해주세요.");
@@ -76,7 +76,7 @@ public class EmployeeMenu {
 			
 			switch(num) {
 				case 1 :
-					ec.selectById(a);
+					ec.selectById();
 					break;
 				case 2 : 
 					System.out.println("==회원 정보 변경==");
@@ -95,16 +95,16 @@ public class EmployeeMenu {
 					double bonus = sc.nextDouble();
 					sc.nextLine();
 					
-					ec.updateEmployee(a, phone,dept,salary,bonus);
+					ec.updateEmployee(phone,dept,salary,bonus);
 					
 					break;
 				case 3 :
 					System.out.println("==회원 탈퇴==");
-					System.out.println(a.getEmpId()+"회원님 정말로 탈퇴하시겠습니까?(y/n)");
+					System.out.println("정말로 탈퇴하시겠습니까?(y/n)");
 					char ch = sc.next().charAt(0);
 					
 					if(ch == 'y' || ch == 'Y') {
-						ec.deleteEmployee(a);
+						ec.deleteEmployee();
 					}
 					istrue=false;
 					break;
@@ -114,20 +114,20 @@ public class EmployeeMenu {
 					System.out.print("예약하시고 싶은 roomName을 입력해주세요.");
 					String roomName = sc.next();
 					
-					ec.reservationRoom(a,roomName);
+					ec.reservationRoom(roomName);
 					
 					break;
 				case 5 :
 					System.out.print("반납하시고 싶은 회의실이름을 입력해주세요.\n");
-					ec.selectConfirmRoom(a);
+					ec.selectConfirmRoom();
 					String Rn = sc.next();
 					
-					ec.returnRoom(a,Rn);
+					ec.returnRoom(Rn);
 					
 					break;
 				case 6 :
 					System.out.println("\n회원님의 회의실 예약 확정 내역입니다.");
-					ec.selectConfirmRoom(a);
+					ec.selectConfirmRoom();
 					
 					break;
 				case 9 :
@@ -142,7 +142,7 @@ public class EmployeeMenu {
 	 * 관리자 등급으로 로그인할 시 보여주는 메뉴
 	 * @param a
 	 */
-	public void mainMenuAdmin(Employee a) {
+	public void mainMenuAdmin() {
 		while(true) {
 			System.out.println("\n관리자 메뉴입니다. 원하시는 메뉴번호를 입력해주세요.");
 			System.out.println("1. 사원 추가");
@@ -262,14 +262,14 @@ public class EmployeeMenu {
 		System.out.println("\n"+ message);
 		
 	}
-	public void adminLoginSuccess(Employee a) {
+	public void adminLoginSuccess() {
 		System.out.println("\n 관리자 로그인에 성공하였습니다." );
-		mainMenuAdmin(a);
+		mainMenuAdmin();
 	}
 	
-	public void empLoginSuccess(Employee a) {
+	public void empLoginSuccess() {
 		System.out.println("\n 회원 로그인에 성공하였습니다.");
-		mainMenuEmployee(a);
+		mainMenuEmployee();
 	}
 	
 	

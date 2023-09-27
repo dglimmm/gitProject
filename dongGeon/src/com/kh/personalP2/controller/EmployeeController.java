@@ -24,7 +24,7 @@ public class EmployeeController {
 			new EmployeeMenu().displayLoginFail("로그인에 실패하였습니다.");
 		}else {
 			if(a.getEmpGrade().charAt(0)=='A') {
-				new EmployeeMenu().adminLoginSuccess(a);
+				new EmployeeMenu().adminLoginSuccess();
 			}else {
 			new EmployeeMenu().displayAdmLoginFail("관리자 회원이 아닙니다. 로그인에 실패했습니다.");
 			}
@@ -40,29 +40,29 @@ public class EmployeeController {
 		if(e == null) {
 			new EmployeeMenu().displayLoginFail("로그인에 실패하였습니다.");
 		}else {
-				new EmployeeMenu().empLoginSuccess(e);
+				new EmployeeMenu().empLoginSuccess();
 			}
 		
 	}
 	
-	public void selectById(Employee a) {
-		Employee e = new EmpService().selectById(a);
+	public void selectById() {
+		Employee e = new EmpService().selectById();
 		
 		if(e == null) {
-			new EmployeeMenu().displayNoData(a.getEmpId() + "으로 조회된 회원이 없습니다.");
+			new EmployeeMenu().displayNoData("조회된 회원이 없습니다.");
 		}else {
 			new EmployeeMenu().displayEmployee(e);
 		}
 	}
 	
-	public void updateEmployee(Employee a,String phone,String dept,int salary,double bonus) {
+	public void updateEmployee(String phone,String dept,int salary,double bonus) {
 		Employee e = new Employee();
 		e.setPhone(phone);
 		e.setDept(dept);
 		e.setSalary(salary);
 		e.setBonus(bonus);
 		
-		int result = new EmpService().updateEmployee(a, e);
+		int result = new EmpService().updateEmployee(e);
 		
 		if(result > 0) {
 			new EmployeeMenu().displaySuccess("성공적으로 수정되었습니다.");
@@ -95,8 +95,8 @@ public class EmployeeController {
 		}
 	}
 	
-	public void deleteEmployee(Employee a) {
-		int result = new EmpService().deleteEmployee(a);
+	public void deleteEmployee() {
+		int result = new EmpService().deleteEmployee();
 		
 		if(result > 0) {
 			new EmployeeMenu().displaySuccess("회원 탈퇴에 성공하였습니다.");
@@ -153,8 +153,8 @@ public class EmployeeController {
 	 * @param a
 	 * @param roomName
 	 */
-	public void reservationRoom(Employee a, String roomName) {
-		int result = new EmpService().reservationRoom(a,roomName);
+	public void reservationRoom(String roomName) {
+		int result = new EmpService().reservationRoom(roomName);
 		
 		if(result > 0) {
 			new EmployeeMenu().displaySuccess("회의실예약 신청이 완료되었습니다.\n 관리자가 승인하면 예약이 확정됩니다.");
@@ -195,8 +195,8 @@ public class EmployeeController {
 	 * @param a
 	 * @param Rn
 	 */
-	public void returnRoom(Employee a, String Rn) {
-		int result = new EmpService().returnRoom(a,Rn);
+	public void returnRoom(String Rn) {
+		int result = new EmpService().returnRoom(Rn);
 		
 		if(result > 0) {
 			new EmployeeMenu().displaySuccess("회의실반납이 완료되었습니다.\n 이용해주셔서 감사합니다.");
@@ -209,8 +209,8 @@ public class EmployeeController {
 	 * 회원이 예약 확정목록 보기
 	 * @param a
 	 */
-	public void selectConfirmRoom(Employee a) {
-		ArrayList<ReservationLog> list = new EmpService().selectConfirmRoom(a);
+	public void selectConfirmRoom() {
+		ArrayList<ReservationLog> list = new EmpService().selectConfirmRoom();
 		
 		if(list.isEmpty()) {
 			new EmployeeMenu().displayNoData("예약 확정된 회의실이 없습니다.");

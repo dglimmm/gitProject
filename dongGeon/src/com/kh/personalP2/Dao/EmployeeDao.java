@@ -109,7 +109,7 @@ private Properties prop = new Properties();
 		return e;
 	}
 	
-	public Employee selectById(Connection conn, Employee a) {
+	public Employee selectById(Connection conn, Employee logindata) {
 		Employee e = null;
 		
 		PreparedStatement pstmt = null;
@@ -119,7 +119,7 @@ private Properties prop = new Properties();
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, a.getEmpId());
+			pstmt.setString(1, logindata.getEmpId());
 			
 			rset = pstmt.executeQuery();
 			
@@ -146,7 +146,7 @@ private Properties prop = new Properties();
 		return e;
 	}
 	
-	public int updateEmployee(Connection conn,Employee a, Employee e) {
+	public int updateEmployee(Connection conn,Employee logindata, Employee e) {
 		int result = 0;
 		
 		PreparedStatement pstmt = null;
@@ -158,7 +158,7 @@ private Properties prop = new Properties();
 			pstmt.setString(2, e.getDept());
 			pstmt.setInt(3, e.getSalary());
 			pstmt.setDouble(4, e.getBonus());
-			pstmt.setString(5, a.getEmpId());
+			pstmt.setString(5, logindata.getEmpId());
 			
 			
 			result = pstmt.executeUpdate();
@@ -198,14 +198,14 @@ private Properties prop = new Properties();
 		return result;
 	}
 	
-	public int deleteEmployee(Connection conn, Employee a) {
+	public int deleteEmployee(Connection conn, Employee logindata) {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("deleteEmployee");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, a.getEmpId());
+			pstmt.setString(1, logindata.getEmpId());
 			
 			result = pstmt.executeUpdate();
 			
@@ -338,7 +338,7 @@ private Properties prop = new Properties();
 		
 	}
 	
-	public int reservationRoom(Connection conn, Employee a ,String roomName){
+	public int reservationRoom(Connection conn, Employee logindata ,String roomName){
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("reservationRoom");
@@ -346,7 +346,7 @@ private Properties prop = new Properties();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, roomName);
-			pstmt.setInt(2, a.getEmpNo());
+			pstmt.setInt(2, logindata.getEmpNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -413,7 +413,7 @@ private Properties prop = new Properties();
 		return result;
 	}
 	
-	public int returnRoom(Connection conn, Employee a ,String Rn){
+	public int returnRoom(Connection conn, Employee logindata ,String Rn){
 		int result = 0;
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("returnRoom");
@@ -421,7 +421,7 @@ private Properties prop = new Properties();
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, Rn);
-			pstmt.setInt(2, a.getEmpNo());
+			pstmt.setInt(2, logindata.getEmpNo());
 			
 			result = pstmt.executeUpdate();
 			
@@ -434,7 +434,7 @@ private Properties prop = new Properties();
 		return result;
 	}
 	
-	public ArrayList<ReservationLog> selectConfirmRoom(Connection conn,Employee a){
+	public ArrayList<ReservationLog> selectConfirmRoom(Connection conn,Employee logindata){
 		ArrayList<ReservationLog> list = new ArrayList<>();
 		
 		PreparedStatement pstmt = null;
@@ -444,7 +444,7 @@ private Properties prop = new Properties();
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, a.getEmpNo());
+			pstmt.setInt(1, logindata.getEmpNo());
 			
 			rset = pstmt.executeQuery();
 			
