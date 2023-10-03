@@ -76,6 +76,7 @@ public class JDBCTemplate {
 		}
 	}
 	
+	//Connection 반납
 	public static void close(Connection conn) {
 		try {
 			if(conn !=null && !conn.isClosed()) {
@@ -86,6 +87,7 @@ public class JDBCTemplate {
 		}
 	}
 	
+	//resultset 반납 
 	public static void close(ResultSet rset) {
 		try {
 			if(rset !=null && !rset.isClosed()) {

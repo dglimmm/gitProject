@@ -57,8 +57,7 @@ public class EmployeeMenu {
 	
 	
 	/**
-	 * 회원 등급이 로그인시 나타나는 메뉴 
-	 * @param a (로그인한 회원정보 저장하기위함) 
+	 * 회원등급으로 로그인시 나타나는 메뉴 
 	 */
 	public void mainMenuEmployee() {
 		boolean istrue = true;
@@ -140,7 +139,6 @@ public class EmployeeMenu {
 	}
 	/**
 	 * 관리자 등급으로 로그인할 시 보여주는 메뉴
-	 * @param a
 	 */
 	public void mainMenuAdmin() {
 		while(true) {

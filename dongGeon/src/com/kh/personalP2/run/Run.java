@@ -6,6 +6,7 @@ public class Run {
 
 	public static void main(String[] args) {
 		EmployeeMenu ep = new EmployeeMenu();
+		//로그인 메뉴 호출
 		ep.logintoMain();
 	}
 }

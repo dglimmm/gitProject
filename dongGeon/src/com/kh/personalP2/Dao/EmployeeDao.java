@@ -17,6 +17,7 @@ import com.kh.personalP2.vo.Room;
 public class EmployeeDao {
 private Properties prop = new Properties();
 	
+	//쿼리문 properties에 담아놓고 읽어오기위함
 	public EmployeeDao() {
 		try {
 			prop.load(new FileInputStream("resources/query.properties"));
@@ -25,6 +26,7 @@ private Properties prop = new Properties();
 		}
 	}
 	
+	//관리자 로그인, 모든 회원정보 다 담기
 	public Employee admLogin(Connection conn, String empId,String empPwd) {
 		
 		Employee e =null;
@@ -68,6 +70,7 @@ private Properties prop = new Properties();
 		return e;
 	}
 	
+	//회원 로그인 
 	public Employee empLogin(Connection conn, String empId,String empPwd) {
 		
 		Employee e =null;
@@ -108,7 +111,7 @@ private Properties prop = new Properties();
 		
 		return e;
 	}
-	
+	//아이디로 정보조회
 	public Employee selectById(Connection conn, Employee logindata) {
 		Employee e = null;
 		
@@ -264,7 +267,7 @@ private Properties prop = new Properties();
 		}
 		return result;
 	}
-	
+	//모든 회원 조회
 	public ArrayList<Employee> selectList(Connection conn){
 		
 		ArrayList<Employee> list = new ArrayList<>();

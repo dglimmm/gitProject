@@ -10,9 +10,10 @@ import com.kh.personalP2.vo.ReservationLog;
 import com.kh.personalP2.vo.Room;
 
 public class EmpService {
+	//로그인 정보 담기위한 스태틱 변수
 	static Employee logindata;
 
-	
+	//관리자 로그인
 	public Employee admLogin(String empId,String empPwd) {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -21,6 +22,7 @@ public class EmpService {
 		
 		return logindata;
 	}
+	//회원 로그인 
 	public Employee empLogin(String empId,String empPwd) {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -30,6 +32,7 @@ public class EmpService {
 		return logindata;
 	}
 	
+	// 아이디로 정보 조회
 	public Employee selectById() {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -39,6 +42,7 @@ public class EmpService {
 		return e;
 	}
 	
+	//회원 정보 업데이트
 	public int updateEmployee(Employee e) {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -52,6 +56,7 @@ public class EmpService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	//관리자가 회원 수정
 	public int updateEmployeeAdm( Employee e) {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -66,6 +71,7 @@ public class EmpService {
 		return result;
 	}
 	
+	//회원 탈퇴
 	public int deleteEmployee() {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -79,6 +85,7 @@ public class EmpService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
+	//관리자가 회원 탈퇴시키는 메소드
 	public int deleteEmployeeAdm(String tmp) {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -93,6 +100,7 @@ public class EmpService {
 		return result;
 	}
 	
+	//회원 추가
 	public int insertEmployee(Employee e) {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -105,7 +113,8 @@ public class EmpService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
-		
+	
+	
 	public ArrayList<Employee> selectList(){
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -115,7 +124,7 @@ public class EmpService {
 		
 		return list;
 	}
-	
+	//회의실 정보 가져오는 메소드
 	public ArrayList<Room> selectRoom(){
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -124,7 +133,7 @@ public class EmpService {
 		
 		return list;
 	}
-	
+	//회의실 예약 메소드
 	public int reservationRoom(String roomName) {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -140,6 +149,7 @@ public class EmpService {
 		
 	}
 	
+	//관리자가 회의실예약 대기인 회의실 보는 메소드 
 	public ArrayList<ReservationLog> selectRoomLog() {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -149,6 +159,7 @@ public class EmpService {
 		return list;
 	}
 	
+	//관리자가 예약 대기인 회의실을 예약 확정시키는 메소드
 	public int confirmRoom(String roomName){
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -162,7 +173,7 @@ public class EmpService {
 		JDBCTemplate.close(conn);
 		return result;
 	}
-	
+	//회원이 회의실 예약을 반납하는 메소드
 	public int returnRoom(String Rn) {
 		Connection conn = JDBCTemplate.getConnection();
 		
@@ -178,6 +189,7 @@ public class EmpService {
 		
 	}
 	
+	//회원이 자신이 신청한 회의실 예약 확정 상태를 볼 수 있는 메소드
 	public ArrayList<ReservationLog> selectConfirmRoom() {
 		Connection conn = JDBCTemplate.getConnection();
 		

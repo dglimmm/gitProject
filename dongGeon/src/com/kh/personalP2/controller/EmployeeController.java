@@ -32,7 +32,7 @@ public class EmployeeController {
 
 	}
 	
-	
+	//회원로그인 서비스로 보냄
 	public void empLogin(String empId, String empPwd) {
 		
 		Employee e = new EmpService().admLogin(empId,empPwd);
@@ -44,7 +44,7 @@ public class EmployeeController {
 			}
 		
 	}
-	
+	//회원의 모든 정보 조회, 서비스로 보냄
 	public void selectById() {
 		Employee e = new EmpService().selectById();
 		
@@ -54,7 +54,7 @@ public class EmployeeController {
 			new EmployeeMenu().displayEmployee(e);
 		}
 	}
-	
+	//회원정보수정
 	public void updateEmployee(String phone,String dept,int salary,double bonus) {
 		Employee e = new Employee();
 		e.setPhone(phone);
@@ -71,7 +71,7 @@ public class EmployeeController {
 		}
 	}
 	/**
-	 * 입력받은 인자로 사원정보 수정
+	 * 관리자가 입력받은 인자로 사원정보 수정
 	 * @param empId
 	 * @param phone
 	 * @param dept
@@ -94,7 +94,7 @@ public class EmployeeController {
 			new EmployeeMenu().displayFail("해당하는 회원이 없어 회원정보수정에 실패했습니다.");
 		}
 	}
-	
+	//회원탈퇴
 	public void deleteEmployee() {
 		int result = new EmpService().deleteEmployee();
 		
@@ -105,6 +105,7 @@ public class EmployeeController {
 		}
 		
 	}
+	// 관리자가 회원 탈퇴 시킴
 	public void deleteEmployeeAdm(String tmp) {
 		int result = new EmpService().deleteEmployeeAdm(tmp);
 		
@@ -115,7 +116,7 @@ public class EmployeeController {
 		}
 		
 	}
-	
+	//회원 추가
 	public void insertEmployee(String empGrade,String empId,String empPwd, String name,String gender,String phone,String dept,String salary,String bonus) {
 		Employee e = new Employee(empGrade,empId,empPwd,name,gender,phone,dept,Integer.parseInt(salary),Double.parseDouble(bonus));
 		
@@ -127,7 +128,7 @@ public class EmployeeController {
 			new EmployeeMenu().displayFail("회원 추가에 실패하였습니다.");
 		}
 	}
-	
+	//모든 회원조회
 	public void selectList() {
 		ArrayList<Employee> list = new EmpService().selectList();
 		
@@ -137,7 +138,7 @@ public class EmployeeController {
 			new EmployeeMenu().displayEmployeeList(list);
 		}
 	}
-	
+	//모든 회의실 조회 
 	public void selectRoom() {
 		ArrayList<Room> list = new EmpService().selectRoom();
 		
