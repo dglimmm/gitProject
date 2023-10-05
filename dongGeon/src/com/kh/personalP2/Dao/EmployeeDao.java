@@ -343,17 +343,34 @@ private Properties prop = new Properties();
 	
 	public int reservationRoom(Connection conn, Employee logindata ,String roomName){
 		int result = 0;
+		Room r = null;
 		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		PreparedStatement pstmt2 = null;
+		
 		String sql = prop.getProperty("reservationRoom");
+		String sql2 = prop.getProperty("filter");
 		
 		try {
+			pstmt2 = conn.prepareStatement(sql2);
+			pstmt2.setString(1, roomName);
+			
+			rset = pstmt2.executeQuery();
+			
+			while(rset.next()) {
+				r = new Room();
+				r.setRoomYn(rset.getString("ROOM_YN"));
+			}
+			
+			if(r.getRoomYn().trim().equals("N")) {
+				return 100;
+			}
+			
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, roomName);
 			pstmt.setInt(2, logindata.getEmpNo());
 			
 			result = pstmt.executeUpdate();
-			
-			
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}finally {

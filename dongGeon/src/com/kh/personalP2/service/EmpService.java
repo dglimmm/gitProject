@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import com.kh.personalP2.Dao.EmployeeDao;
 import com.kh.personalP2.template.JDBCTemplate;
+import com.kh.personalP2.view.EmployeeMenu;
 import com.kh.personalP2.vo.Employee;
 import com.kh.personalP2.vo.ReservationLog;
 import com.kh.personalP2.vo.Room;
@@ -138,7 +139,9 @@ public class EmpService {
 		Connection conn = JDBCTemplate.getConnection();
 		
 		int result = new EmployeeDao().reservationRoom(conn,logindata, roomName);
-		if(result >0) {
+		if(result == 100) {
+			System.out.println("회의실 예약에 실패하였습니다. \n 회의실 STATUS가 Y인 회의실을 예약해주세요.");
+		}else if(result >0) {
 			JDBCTemplate.commit(conn);
 		}else {
 			JDBCTemplate.rollback(conn);

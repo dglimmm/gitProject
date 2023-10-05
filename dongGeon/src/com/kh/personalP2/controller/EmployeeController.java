@@ -156,8 +156,8 @@ public class EmployeeController {
 	 */
 	public void reservationRoom(String roomName) {
 		int result = new EmpService().reservationRoom(roomName);
-		
-		if(result > 0) {
+		if(result == 100) {
+		}else if(result > 0) {
 			new EmployeeMenu().displaySuccess("회의실예약 신청이 완료되었습니다.\n 관리자가 승인하면 예약이 확정됩니다.");
 		}else {
 			new EmployeeMenu().displayFail("회의실 예약에 실패하였습니다. \n 회의실 이름을 확인해주세요.");
