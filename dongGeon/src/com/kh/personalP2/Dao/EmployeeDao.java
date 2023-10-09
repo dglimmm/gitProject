@@ -326,7 +326,6 @@ private Properties prop = new Properties();
 				r.setBim(rset.getString("BIM"));
 				r.setWifi(rset.getString("WIFI"));
 				r.setRoomYn(rset.getString("ROOM_YN"));
-				r.setRno(rset.getInt("rno"));
 				
 				list.add(r);
 			}
@@ -357,13 +356,13 @@ private Properties prop = new Properties();
 			
 			rset = pstmt2.executeQuery();
 			
-			while(rset.next()) {
+			if(rset.next()) {
 				r = new Room();
 				r.setRoomYn(rset.getString("ROOM_YN"));
-			}
-			
-			if(r.getRoomYn().trim().equals("N")) {
-				return 100;
+				
+				if(r.getRoomYn().trim().equals("N")) {
+					return 100;
+				}
 			}
 			
 			pstmt = conn.prepareStatement(sql);
@@ -375,7 +374,10 @@ private Properties prop = new Properties();
 			e1.printStackTrace();
 		}finally {
 			JDBCTemplate.close(pstmt);
+			JDBCTemplate.close(pstmt2);
+			JDBCTemplate.close(rset);
 		}
+		System.out.println(result);
 		return result;
 	}
 	
